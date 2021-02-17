@@ -13,3 +13,6 @@ export const removeLessonFromCart: ActionCreator = createActionCreator(
 
 export const UPDATE_SORTING = "UPDATE_SORTING";
 export const updateSorting: ActionCreator = createActionCreator(UPDATE_SORTING);
+
+export const LOGIN = "LOGIN";
+export const login: ActionCreator = createActionCreator(LOGIN);

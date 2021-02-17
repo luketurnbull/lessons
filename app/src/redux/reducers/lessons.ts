@@ -50,7 +50,6 @@ const lessonsReducer = (
   const { type, payload } = action;
   switch (type) {
     case ADD_LESSON_TO_CART:
-      console.log(payload);
       return update(state, {
         all: {
           [payload]: {

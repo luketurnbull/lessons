@@ -1,19 +1,27 @@
 import React, { FC } from "react";
 import TextField from "@material-ui/core/TextField";
+import styled from "styled-components";
 
 export interface ILessonSearchProps {
   onChange(v: string): void;
 }
 
+const SearchBar = styled(TextField)`
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
 const LessonSearch: FC<ILessonSearchProps> = ({ onChange }) => {
   return (
-    <TextField
+    <SearchBar
+      aria-label="Search lessons input"
       type="text"
       onChange={(e) => {
         onChange(e.target.value);
       }}
-      id="outlined-basic"
-      label="Outlined"
+      id="lessons-search"
+      label="Search lessons"
       variant="outlined"
     />
   );

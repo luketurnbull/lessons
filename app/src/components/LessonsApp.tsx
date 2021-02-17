@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
+import { Container } from "@material-ui/core";
+
 import { ILesson, IApplicationState } from "type";
 import { getSortedLessons } from "redux/selectors";
 
@@ -18,11 +20,11 @@ const LessonsApp: FC<{}> = () => {
   return (
     <>
       <Header />
-      <main>
+      <Container maxWidth="sm">
         <LessonSorting />
         <LessonSearch onChange={(v: string) => setSearchText(v)} />
         <Lessons lessons={sortedLessons} searchText={searchText} />
-      </main>
+      </Container>
     </>
   );
 };

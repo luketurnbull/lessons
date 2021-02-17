@@ -1,22 +1,20 @@
-import React, { Dispatch } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, Dispatch } from "react";
 import styled from "styled-components";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 
-import { addLessonToCart, removeLessonFromCart } from "redux/actions";
-import { ILesson } from "type";
+import { ILesson, IApplicationState, ILoginRequest } from "type";
+import { useSelector, useDispatch } from "react-redux";
+import { getIsAuthorised } from "redux/selectors";
+import { addLessonToCart, removeLessonFromCart, login } from "redux/actions";
+import LoginModal from "./LoginModal";
+import ToggleCartButton from "./ToggleCartButton";
 
-export interface ILessonProps extends ILesson {
-  index: number;
-}
+export interface ILessonProps extends ILesson {}
 
 const LessonCard = styled(Card)`
   margin-bottom: 20px;
@@ -31,7 +29,7 @@ const CardAvatar = styled(Avatar)`
 `;
 
 const Lesson: React.FC<ILessonProps> = ({
-  index,
+  id,
   name,
   description,
   author,
@@ -41,45 +39,84 @@ const Lesson: React.FC<ILessonProps> = ({
   isInCart,
 }) => {
   const dispatch: Dispatch<any> = useDispatch();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | undefined>(
+    undefined
+  );
+
+  const isAuthorised: boolean = useSelector((state: IApplicationState) =>
+    getIsAuthorised(state)
+  );
 
   const addToCart = () => {
-    dispatch(addLessonToCart(index));
+    if (id !== undefined) {
+      dispatch(addLessonToCart(id));
+    }
   };
 
   const removeFromCart = () => {
-    dispatch(removeLessonFromCart(index));
+    if (isAuthorised) {
+      if (id !== undefined) {
+        dispatch(removeLessonFromCart(id));
+      }
+    } else {
+      setIsLoginModalOpen(true);
+    }
   };
 
-  const renderActionButton = () => {
-    return isInCart ? (
-      <IconButton
-        aria-label="remove-lesson-from-cart"
-        onClick={() => removeFromCart()}
-      >
-        <RemoveShoppingCartIcon />
-      </IconButton>
-    ) : (
-      <IconButton aria-label="add-lesson-to-cart" onClick={() => addToCart()}>
-        <AddShoppingCartIcon />
-      </IconButton>
-    );
+  const authCheck = (callback: () => void) => {
+    if (isAuthorised) {
+      callback();
+    } else {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  const loginUser = (v: ILoginRequest) => {
+    dispatch(login(v));
+    setSuccessMessage("Successfully logged in");
+    setTimeout(() => {
+      setIsLoginModalOpen(false);
+      if (isInCart) {
+        dispatch(removeLessonFromCart(id));
+      } else {
+        dispatch(addLessonToCart(id));
+      }
+    }, 1200);
   };
 
   return (
-    <LessonCard>
-      <CardHeader
-        avatar={<CardAvatar aria-label="recipe">{author[0]}</CardAvatar>}
-        action={renderActionButton()}
-        title={name}
-        subheader={publishDate}
+    <>
+      <LessonCard>
+        <CardHeader
+          avatar={<CardAvatar aria-label="author">{author[0]}</CardAvatar>}
+          action={
+            <ToggleCartButton
+              isInCart={isInCart}
+              remove={() => authCheck(removeFromCart)}
+              add={() => authCheck(addToCart)}
+            />
+          }
+          title={name}
+          subheader={publishDate}
+        />
+        <CardImage image={image} title={name} />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {description}
+          </Typography>
+          <Typography variant="body2" component="p">
+            Duration: {duration}
+          </Typography>
+        </CardContent>
+      </LessonCard>
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        message={successMessage}
+        login={(v: ILoginRequest) => loginUser(v)}
       />
-      <CardImage image={image} title="Paella dish" />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description}
-        </Typography>
-      </CardContent>
-    </LessonCard>
+    </>
   );
 };
 

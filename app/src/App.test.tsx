@@ -19,7 +19,7 @@ describe("GIVEN a Redux store created from the rootReducer", () => {
     });
 
     test.each(initialLessonsState.all)(
-      "THEN the initial lesson is displayed",
+      "THEN all the initial lessons are displayed",
       ({ name }) => {
         expect(container).toHaveTextContent(name);
       }

@@ -2,10 +2,17 @@ import React, { FC, Dispatch } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import styled from "styled-components";
 import { updateSorting } from "redux/actions";
 import { getSortBy } from "redux/selectors";
 import { IApplicationState } from "type";
 import { SortBy } from "../constants";
+
+const SortingButtons = styled(ToggleButtonGroup)`
+  width: 100%;
+  justify-content: center;
+  margin: 10px 0;
+`;
 
 const LessonSorting: FC<{}> = () => {
   const dispatch: Dispatch<any> = useDispatch();
@@ -21,7 +28,7 @@ const LessonSorting: FC<{}> = () => {
   };
 
   return (
-    <ToggleButtonGroup
+    <SortingButtons
       value={value}
       exclusive
       onChange={sortBy}
@@ -36,7 +43,7 @@ const LessonSorting: FC<{}> = () => {
       <ToggleButton value={SortBy.Duration} aria-label="duration">
         Duration
       </ToggleButton>
-    </ToggleButtonGroup>
+    </SortingButtons>
   );
 };
 

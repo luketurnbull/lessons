@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { ILesson } from "type";
-import Lesson from "./Lesson";
 import { filterByValue } from "utils";
-import { Container } from "@material-ui/core";
+import Lesson from "./Lesson";
 
 export interface ILessonSearchProps {
   lessons: ILesson[];
@@ -10,13 +9,19 @@ export interface ILessonSearchProps {
 }
 
 const Lessons: FC<ILessonSearchProps> = ({ lessons, searchText }) => {
-  return (
-    <Container maxWidth="sm">
-      {filterByValue(lessons, searchText).map((l: ILesson, i: number) => {
-        return <Lesson index={i} {...l} key={i} />;
-      })}
-    </Container>
-  );
+  const filteredBySearch: ILesson[] = filterByValue(lessons, searchText);
+
+  if (filteredBySearch.length) {
+    return (
+      <>
+        {filteredBySearch.map((l: ILesson, i: number) => {
+          return <Lesson {...l} key={i} />;
+        })}
+      </>
+    );
+  }
+
+  return <p>Oops! Please search something less vague.</p>;
 };
 
 export default Lessons;
