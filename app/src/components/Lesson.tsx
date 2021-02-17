@@ -24,13 +24,13 @@ const Lesson: React.FC<ILessonProps> = ({
   };
 
   return (
-    <div>
+    <li>
       <h3>{name}</h3>
       <h4>{author}</h4> <span>{publishDate}</span>
       <p>{description}</p>
       <button onClick={() => addToCart()}>Add to cart</button>
       {isInCart ? "Is in cart" : "Not in cart"}
-    </div>
+    </li>
   );
 };
 

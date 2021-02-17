@@ -10,11 +10,11 @@ export interface ILessonSearchProps {
 
 const Lessons: FC<ILessonSearchProps> = ({ lessons, searchText }) => {
   return (
-    <div>
+    <ul className="lessons">
       {filterByValue(lessons, searchText).map((l: ILesson, i: number) => {
         return <Lesson index={i} {...l} key={i} />;
       })}
-    </div>
+    </ul>
   );
 };
 

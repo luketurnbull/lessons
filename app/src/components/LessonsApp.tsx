@@ -14,11 +14,11 @@ const LessonsApp: FC<{}> = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div>
+    <main>
       <LessonSorting />
       <LessonSearch onChange={(v: string) => setSearchText(v)} />
       <Lessons lessons={sortedLessons} searchText={searchText} />
-    </div>
+    </main>
   );
 };
 
