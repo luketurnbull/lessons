@@ -1,7 +1,7 @@
 import { ILessonsState } from "../../type";
 import { AnyAction } from "redux";
 
-const initialState: ILessonsState = {
+export const initialState: ILessonsState = {
   all: [
     {
       name: "React - basics",
