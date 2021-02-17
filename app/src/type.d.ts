@@ -1,3 +1,5 @@
+import { SortBy } from "./constants";
+
 export interface IAction<P> {
   type: string;
   payload: P;
@@ -29,5 +31,5 @@ export interface IAppProps {
 }
 
 export interface ISortingState {
-  sortBy: string;
+  sortBy: SortBy;
 }

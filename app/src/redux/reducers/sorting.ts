@@ -1,9 +1,10 @@
 import { AnyAction } from "redux";
 import { ISortingState } from "type";
+import { SortBy } from "../../constants";
 import { UPDATE_SORTING } from "redux/actions";
 
 export const initialState: ISortingState = {
-  sortBy: "",
+  sortBy: SortBy.None,
 };
 
 const sortingReducer = (

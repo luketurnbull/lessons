@@ -1,9 +1,9 @@
-import { IApplicationState } from "type";
 import { getSortedLessons } from "./selectors";
+import { SortBy } from "../constants";
 
 describe("getSortedLessons selector", () => {
   it("getSortedLessons", () => {
-    const mockAppState: IApplicationState = {
+    const mockAppState: any = {
       lessons: {
         all: [
           {
@@ -18,7 +18,7 @@ describe("getSortedLessons selector", () => {
         ],
       },
       sorting: {
-        sortBy: "publishDate",
+        sortBy: SortBy.PublishDate,
       },
     };
 
