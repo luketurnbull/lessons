@@ -7,7 +7,7 @@ export type ActionCreator = <T>(payload?: T) => IAction<T>;
 
 export interface IApplicationState {
   lessons: ILessonsState;
-  filterSearch: IFilterSearchState;
+  sorting: ISortingState;
 }
 
 export interface ILessonsState {
@@ -28,6 +28,6 @@ export interface IAppProps {
   store: any;
 }
 
-export interface IFilterSearchState {
-  filter: string;
+export interface ISortingState {
+  sortBy: string;
 }
