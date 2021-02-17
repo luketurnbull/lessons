@@ -1,19 +1,27 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux";
-import { ILesson, IApplicationState } from "../type";
+import { ILesson } from "type";
+import { filterByValue } from "utils";
+import Lesson from "./Lesson";
 
-const Lessons: FC<{}> = () => {
-  const allLessons: ILesson[] = useSelector(
-    (state: IApplicationState) => state.lessons.all
-  );
+export interface ILessonSearchProps {
+  lessons: ILesson[];
+  searchText: string;
+}
 
-  return (
-    <div>
-      {allLessons.map((l: ILesson, i: number) => {
-        return <p key={i}>{l.name}</p>;
-      })}
-    </div>
-  );
+const Lessons: FC<ILessonSearchProps> = ({ lessons, searchText }) => {
+  const filteredBySearch: ILesson[] = filterByValue(lessons, searchText);
+
+  if (filteredBySearch.length) {
+    return (
+      <>
+        {filteredBySearch.map((l: ILesson, i: number) => {
+          return <Lesson {...l} key={i} />;
+        })}
+      </>
+    );
+  }
+
+  return <p>Oops! Please search something less vague.</p>;
 };
 
 export default Lessons;
