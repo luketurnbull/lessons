@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { ILesson, IApplicationState } from "../type";
+import { ILesson, IApplicationState } from "type";
+import Lesson from "./Lesson";
 
 const Lessons: FC<{}> = () => {
   const allLessons: ILesson[] = useSelector(
@@ -10,7 +11,7 @@ const Lessons: FC<{}> = () => {
   return (
     <div>
       {allLessons.map((l: ILesson, i: number) => {
-        return <p key={i}>{l.name}</p>;
+        return <Lesson index={i} {...l} />;
       })}
     </div>
   );

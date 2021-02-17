@@ -1,4 +1,4 @@
-import { ILessonsState } from "../../type";
+import { ILessonsState } from "type";
 import { AnyAction } from "redux";
 
 export const initialState: ILessonsState = {
