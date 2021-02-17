@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ILesson } from "type";
-import Lesson from "./Lesson";
+import { Lesson } from "./Lesson";
 import { filterByValue } from "utils";
 
 export interface ILessonSearchProps {

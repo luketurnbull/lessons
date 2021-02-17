@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import TextField from "@material-ui/core/TextField";
 
 export interface ILessonSearchProps {
   onChange(v: string): void;
@@ -6,11 +7,14 @@ export interface ILessonSearchProps {
 
 const LessonSearch: FC<ILessonSearchProps> = ({ onChange }) => {
   return (
-    <input
+    <TextField
       type="text"
       onChange={(e) => {
         onChange(e.target.value);
       }}
+      id="outlined-basic"
+      label="Outlined"
+      variant="outlined"
     />
   );
 };
