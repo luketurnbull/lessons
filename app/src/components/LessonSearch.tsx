@@ -1,7 +1,18 @@
 import React, { FC } from "react";
 
-const LessonSearch: FC<{}> = () => {
-  return <input type="text" />;
+export interface ILessonSearchProps {
+  onChange(v: string): void;
+}
+
+const LessonSearch: FC<ILessonSearchProps> = ({ onChange }) => {
+  return (
+    <input
+      type="text"
+      onChange={(e) => {
+        onChange(e.target.value);
+      }}
+    />
+  );
 };
 
 export default LessonSearch;

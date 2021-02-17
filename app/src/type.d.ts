@@ -29,6 +29,5 @@ export interface IAppProps {
 }
 
 export interface IFilterSearchState {
-  searchText: string;
   filter: string;
 }

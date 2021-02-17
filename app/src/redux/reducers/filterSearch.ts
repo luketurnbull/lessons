@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 import { IFilterSearchState } from "type";
+import { UPDATE_SORTING } from "redux/actions";
 
 export const initialState: IFilterSearchState = {
-  searchText: "",
   filter: "",
 };
 
@@ -10,7 +10,11 @@ const filterSearchReducer = (
   state: IFilterSearchState = initialState,
   action: AnyAction
 ): IFilterSearchState => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
+    case UPDATE_SORTING:
+      state.filter = payload;
+      return state;
     default:
       return state;
   }

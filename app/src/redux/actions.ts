@@ -10,3 +10,6 @@ export const REMOVE_LESSON_FROM_CART = "REMOVE_LESSON_FROM_CART";
 export const removeLessonFromCart: ActionCreator = createActionCreator(
   REMOVE_LESSON_FROM_CART
 );
+
+export const UPDATE_SORTING = "UPDATE_SORTING";
+export const updateSorting: ActionCreator = createActionCreator(UPDATE_SORTING);
