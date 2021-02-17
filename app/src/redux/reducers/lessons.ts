@@ -1,5 +1,7 @@
 import { AnyAction } from "redux";
+import update from "react-addons-update";
 import { ILessonsState } from "type";
+import { ADD_LESSON_TO_CART, REMOVE_LESSON_FROM_CART } from "../actions";
 
 export const initialState: ILessonsState = {
   all: [
@@ -45,7 +47,24 @@ const lessonsReducer = (
   state: ILessonsState = initialState,
   action: AnyAction
 ): ILessonsState => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
+    case ADD_LESSON_TO_CART:
+      return update(state, {
+        all: {
+          [payload]: {
+            isInCart: { $set: true },
+          },
+        },
+      });
+    case REMOVE_LESSON_FROM_CART:
+      return update(state, {
+        all: {
+          [payload]: {
+            isInCart: { $set: false },
+          },
+        },
+      });
     default:
       return state;
   }
