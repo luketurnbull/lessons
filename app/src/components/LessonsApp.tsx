@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { ILesson, IApplicationState } from "type";
 import { getSortedLessons } from "redux/selectors";
 
-import { Header } from "./Header";
+import Header from "./Header";
 import LessonSorting from "./LessonSorting";
 import LessonSearch from "./LessonSearch";
 import Lessons from "./Lessons";
