@@ -1,5 +1,6 @@
 export interface IApplicationState {
   lessons: ILessonsState;
+  filterSearch: IFilterSearchState;
 }
 
 export interface ILessonsState {
@@ -17,4 +18,9 @@ export interface ILesson {
 
 export interface IAppProps {
   store: any;
+}
+
+export interface IFilterSearchState {
+  searchText: string;
+  filter: string;
 }

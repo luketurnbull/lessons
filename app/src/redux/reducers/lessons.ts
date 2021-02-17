@@ -1,5 +1,5 @@
-import { ILessonsState } from "type";
 import { AnyAction } from "redux";
+import { ILessonsState } from "type";
 
 export const initialState: ILessonsState = {
   all: [
